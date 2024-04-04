@@ -1,4 +1,11 @@
-import { View, TextInput, Button, StyleSheet, Modal } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  Modal,
+  Image,
+} from "react-native";
 import ErrorMsg from "./errorMsg";
 
 const GoalInput = ({
@@ -53,6 +60,10 @@ const GoalInput = ({
   return (
     <Modal animationType="slide">
       <View style={styles.inputContainer}>
+        <Image
+          source={require("../assets/images/th.jpg")}
+          style={styles.image}
+        />
         <TextInput
           placeholder="Your course goal"
           onChangeText={goalInputHandle}
@@ -78,10 +89,15 @@ export default GoalInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
+    backgroundColor: "#0ff",
     flex: 1,
-    // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+  },
+  image: {
+    width: "80%",
+    height: 100,
+    margin: 20,
   },
   textInput: {
     borderWidth: 1,
