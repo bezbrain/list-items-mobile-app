@@ -1,20 +1,81 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  ScrollView,
+  FlatList,
+} from "react-native";
+import GoalInput from "./components/goalInput";
+import SuccessMsg from "./components/successMsg";
+import ErrorMsg from "./components/errorMsg";
+import GoalItem from "./components/goalItem";
 
 export default function App() {
+  const [isTextObj, setIsTextObj] = useState("");
+  const [allGoals, setAllGoals] = useState([]);
+  const [isError, setIsError] = useState("");
+  const [isSuccess, setIsSuccess] = useState("");
+
+  const deleteGoalHandler = (id) => {
+    const remainingGoals = allGoals.filter((each) => each.id !== id);
+    setAllGoals(remainingGoals);
+    setIsSuccess("Goal removed successfully");
+    setTimeout(() => {
+      setIsSuccess("");
+    }, 3000);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={styles.appContainer}>
+      <GoalInput
+        setIsError={setIsError}
+        setIsTextObj={setIsTextObj}
+        isTextObj={isTextObj}
+        allGoals={allGoals}
+        setAllGoals={setAllGoals}
+        setIsSuccess={setIsSuccess}
+      />
+
+      <ErrorMsg isError={isError} />
+
+      <View style={styles.listItemsContainer}>
+        <FlatList
+          alwaysBounceVertical={false}
+          data={allGoals}
+          renderItem={(eachObj) => {
+            // console.log(eachObj);
+            return (
+              <GoalItem
+                deleteGoalHandler={deleteGoalHandler}
+                id={eachObj.item.id}
+                text={eachObj.item.text}
+              />
+            );
+          }}
+          keyExtractor={(each, index) => {
+            return each.id;
+          }}
+        />
+        <SuccessMsg isSuccess={isSuccess} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+  },
+
+  listItemsContainer: {
+    flex: 6,
+    marginTop: 24,
+    borderTopWidth: 1,
+    borderTopColor: "grey",
   },
 });
