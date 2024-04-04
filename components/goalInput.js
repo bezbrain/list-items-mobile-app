@@ -61,7 +61,7 @@ const GoalInput = ({
     <Modal animationType="slide">
       <View style={styles.inputContainer}>
         <Image
-          source={require("../assets/images/th.jpg")}
+          source={require("../assets/images/my-goals.jpg")}
           style={styles.image}
         />
         <TextInput
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: "80%",
-    height: 100,
+    width: "90%",
+    height: 150,
     margin: 20,
   },
   textInput: {
