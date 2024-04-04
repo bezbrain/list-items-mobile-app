@@ -1,15 +1,13 @@
-import { Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 const ErrorMsg = ({ isError }) => {
-  return (
-    <>
-      {isError && (
-        <Text style={{ color: "red", fontWeight: 700, marginTop: -10 }}>
-          {isError}
-        </Text>
-      )}
-    </>
-  );
+  return <>{isError && <Text style={styles.errorText}>{isError}</Text>}</>;
 };
 
 export default ErrorMsg;
+
+const styles = StyleSheet.create({
+  errorText: {
+    color: "red",
+  },
+});

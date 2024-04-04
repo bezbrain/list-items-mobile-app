@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import GoalInput from "./components/goalInput";
 import SuccessMsg from "./components/successMsg";
-import ErrorMsg from "./components/errorMsg";
 import GoalItem from "./components/goalItem";
 
 export default function App() {
@@ -18,6 +17,7 @@ export default function App() {
   const [allGoals, setAllGoals] = useState([]);
   const [isError, setIsError] = useState("");
   const [isSuccess, setIsSuccess] = useState("");
+  const [isModal, setIsModal] = useState(false);
 
   const deleteGoalHandler = (id) => {
     const remainingGoals = allGoals.filter((each) => each.id !== id);
@@ -30,16 +30,19 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <GoalInput
-        setIsError={setIsError}
-        setIsTextObj={setIsTextObj}
-        isTextObj={isTextObj}
-        allGoals={allGoals}
-        setAllGoals={setAllGoals}
-        setIsSuccess={setIsSuccess}
-      />
-
-      <ErrorMsg isError={isError} />
+      <Button title="Add New Item" onPress={() => setIsModal(true)} />
+      {isModal && (
+        <GoalInput
+          setIsError={setIsError}
+          setIsTextObj={setIsTextObj}
+          isTextObj={isTextObj}
+          allGoals={allGoals}
+          setAllGoals={setAllGoals}
+          setIsSuccess={setIsSuccess}
+          setIsModal={setIsModal}
+          isError={isError}
+        />
+      )}
 
       <View style={styles.listItemsContainer}>
         <FlatList

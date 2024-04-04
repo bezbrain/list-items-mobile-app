@@ -1,4 +1,5 @@
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import { View, TextInput, Button, StyleSheet, Modal } from "react-native";
+import ErrorMsg from "./errorMsg";
 
 const GoalInput = ({
   isTextObj,
@@ -7,6 +8,8 @@ const GoalInput = ({
   allGoals,
   setAllGoals,
   setIsSuccess,
+  setIsModal,
+  isError,
 }) => {
   // HANDLE INPUT FIELD
   const goalInputHandle = (enteredValue) => {
@@ -37,6 +40,8 @@ const GoalInput = ({
       },
     ]);
 
+    setIsModal(false);
+
     setIsSuccess("Goal added successfully");
 
     setTimeout(() => {
@@ -46,15 +51,18 @@ const GoalInput = ({
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Your course goal"
-        onChangeText={goalInputHandle}
-        value={isTextObj}
-        style={styles.textInput}
-      />
-      <Button title="Add Goal" onPress={addGoalHandler} />
-    </View>
+    <Modal animationType="slide">
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Your course goal"
+          onChangeText={goalInputHandle}
+          value={isTextObj}
+          style={styles.textInput}
+        />
+        <Button title="Add Goal" onPress={addGoalHandler} />
+        <ErrorMsg isError={isError} />
+      </View>
+    </Modal>
   );
 };
 
@@ -63,8 +71,8 @@ export default GoalInput;
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    // flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
   },
   textInput: {
