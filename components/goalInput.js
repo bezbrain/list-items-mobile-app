@@ -60,6 +60,14 @@ const GoalInput = ({
           style={styles.textInput}
         />
         <Button title="Add Goal" onPress={addGoalHandler} />
+        <Button
+          title="Close"
+          color="red"
+          onPress={() => {
+            setIsModal(false);
+            setIsError("");
+          }}
+        />
         <ErrorMsg isError={isError} />
       </View>
     </Modal>
