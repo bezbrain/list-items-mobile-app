@@ -1,16 +1,9 @@
 import { useState } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { Button, StyleSheet, View, FlatList } from "react-native";
 import GoalInput from "./components/goalInput";
 import SuccessMsg from "./components/successMsg";
 import GoalItem from "./components/goalItem";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const [isTextObj, setIsTextObj] = useState("");
@@ -29,42 +22,45 @@ export default function App() {
   };
 
   return (
-    <View style={styles.appContainer}>
-      <Button title="Add New Item" onPress={() => setIsModal(true)} />
-      {isModal && (
-        <GoalInput
-          setIsError={setIsError}
-          setIsTextObj={setIsTextObj}
-          isTextObj={isTextObj}
-          allGoals={allGoals}
-          setAllGoals={setAllGoals}
-          setIsSuccess={setIsSuccess}
-          setIsModal={setIsModal}
-          isError={isError}
-        />
-      )}
+    <>
+      <StatusBar style="auto" />
+      <View style={styles.appContainer}>
+        <Button title="Add New Item" onPress={() => setIsModal(true)} />
+        {isModal && (
+          <GoalInput
+            setIsError={setIsError}
+            setIsTextObj={setIsTextObj}
+            isTextObj={isTextObj}
+            allGoals={allGoals}
+            setAllGoals={setAllGoals}
+            setIsSuccess={setIsSuccess}
+            setIsModal={setIsModal}
+            isError={isError}
+          />
+        )}
 
-      <View style={styles.listItemsContainer}>
-        <FlatList
-          alwaysBounceVertical={false}
-          data={allGoals}
-          renderItem={(eachObj) => {
-            // console.log(eachObj);
-            return (
-              <GoalItem
-                deleteGoalHandler={deleteGoalHandler}
-                id={eachObj.item.id}
-                text={eachObj.item.text}
-              />
-            );
-          }}
-          keyExtractor={(each, index) => {
-            return each.id;
-          }}
-        />
-        <SuccessMsg isSuccess={isSuccess} />
+        <View style={styles.listItemsContainer}>
+          <FlatList
+            alwaysBounceVertical={false}
+            data={allGoals}
+            renderItem={(eachObj) => {
+              // console.log(eachObj);
+              return (
+                <GoalItem
+                  deleteGoalHandler={deleteGoalHandler}
+                  id={eachObj.item.id}
+                  text={eachObj.item.text}
+                />
+              );
+            }}
+            keyExtractor={(each, index) => {
+              return each.id;
+            }}
+          />
+          <SuccessMsg isSuccess={isSuccess} />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -72,7 +68,7 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 32,
+    paddingVertical: 70,
   },
 
   listItemsContainer: {

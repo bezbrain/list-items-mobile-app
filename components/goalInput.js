@@ -61,7 +61,7 @@ const GoalInput = ({
     <Modal animationType="slide">
       <View style={styles.inputContainer}>
         <Image
-          source={require("../assets/images/my-goals.jpg")}
+          source={require("../assets/images/OIP.jpg")}
           style={styles.image}
         />
         <TextInput
@@ -70,15 +70,17 @@ const GoalInput = ({
           value={isTextObj}
           style={styles.textInput}
         />
-        <Button title="Add Goal" onPress={addGoalHandler} />
-        <Button
-          title="Close"
-          color="red"
-          onPress={() => {
-            setIsModal(false);
-            setIsError("");
-          }}
-        />
+        <View style={styles.btnsContainer}>
+          <Button title="Add Goal" onPress={addGoalHandler} />
+          <Button
+            title="Close"
+            color="red"
+            onPress={() => {
+              setIsModal(false);
+              setIsError("");
+            }}
+          />
+        </View>
         <ErrorMsg isError={isError} />
       </View>
     </Modal>
@@ -89,15 +91,16 @@ export default GoalInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: "#0ff",
+    backgroundColor: "#fcfcfc",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   image: {
-    width: "90%",
-    height: 150,
+    width: "95%",
+    height: 200,
     margin: 20,
+    borderRadius: 10,
   },
   textInput: {
     borderWidth: 1,
@@ -107,5 +110,9 @@ const styles = StyleSheet.create({
     width: "70%",
     borderRadius: 6,
     height: 40,
+  },
+  btnsContainer: {
+    flexDirection: "row",
+    gap: 10,
   },
 });
