@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Modal,
   Image,
+  ScrollView,
 } from "react-native";
 import ErrorMsg from "./errorMsg";
 
@@ -58,32 +59,34 @@ const GoalInput = ({
   };
 
   return (
-    <Modal animationType="slide">
-      <View style={styles.inputContainer}>
-        <Image
-          source={require("../assets/images/OIP.jpg")}
-          style={styles.image}
-        />
-        <TextInput
-          placeholder="Your course goal"
-          onChangeText={goalInputHandle}
-          value={isTextObj}
-          style={styles.textInput}
-        />
-        <View style={styles.btnsContainer}>
-          <Button title="Add Goal" onPress={addGoalHandler} />
-          <Button
-            title="Close"
-            color="red"
-            onPress={() => {
-              setIsModal(false);
-              setIsError("");
-            }}
+    <ScrollView>
+      <Modal animationType="slide">
+        <View style={styles.inputContainer}>
+          <Image
+            source={require("../assets/images/OIP.jpg")}
+            style={styles.image}
           />
+          <TextInput
+            placeholder="Your course goal"
+            onChangeText={goalInputHandle}
+            value={isTextObj}
+            style={styles.textInput}
+          />
+          <View style={styles.btnsContainer}>
+            <Button title="Add Goal" onPress={addGoalHandler} />
+            <Button
+              title="Close"
+              color="red"
+              onPress={() => {
+                setIsModal(false);
+                setIsError("");
+              }}
+            />
+          </View>
+          <ErrorMsg isError={isError} />
         </View>
-        <ErrorMsg isError={isError} />
-      </View>
-    </Modal>
+      </Modal>
+    </ScrollView>
   );
 };
 
@@ -114,5 +117,6 @@ const styles = StyleSheet.create({
   btnsContainer: {
     flexDirection: "row",
     gap: 10,
+    marginTop: 10,
   },
 });
